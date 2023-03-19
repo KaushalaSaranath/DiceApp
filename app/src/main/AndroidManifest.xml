@@ -12,6 +12,21 @@
         android:theme="@style/Theme.DiceApplication"
         tools:targetApi="31">
         <activity
+            android:name=".userNameAndTarget"
+            android:exported="false" />
+        <activity
+            android:name=".winOrlose"
+            android:exported="false" />
+        <activity
+            android:name=".GamePage"
+            android:exported="false" />
+        <activity
+            android:name=".profilePopUp"
+            android:exported="false" />
+        <activity
+            android:name=".Choices"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
