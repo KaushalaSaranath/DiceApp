@@ -9,6 +9,7 @@
     android:background="#AED6F1 "
     tools:context=".profilePopUp">
 
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="264dp"
@@ -17,7 +18,7 @@
         android:layout_marginTop="46dp"
         android:background="#F3F0F0"
         android:backgroundTint="#AED6F1 "
-        android:text="TextViewI confirm that I understand what plagiarism is and have read and understood the section on Assessment Offences in the Essential Information for Students. The work that I have submitted is entirely my own. Any work from other authors is duly referenced and acknowledged. "
+        android:text="I confirm that I understand what plagiarism is and have read and understood the section on Assessment Offences in the Essential Information for Students. The work that I have submitted is entirely my own. Any work from other authors is duly referenced and acknowledged. "
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
