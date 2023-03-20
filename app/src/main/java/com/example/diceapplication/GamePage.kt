@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.core.view.isVisible
 import kotlin.random.Random
@@ -22,45 +23,39 @@ class GamePage : AppCompatActivity() {
     var computer:MutableList<Int> = mutableListOf()
     var targetScore = 101
     var isTied = false
-
-
+    var computerwins = 0
+    var humanwins = 0
+    var isHard = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_page)
         val data = Integer.parseInt(intent.getStringExtra("key"))
-        var targetscoreId : TextView = findViewById(R.id.targetscoreId)
+        val targetscoreId : TextView = findViewById(R.id.targetscoreId)
         val getusername : TextView = findViewById(R.id.user)
         val username = intent.getStringExtra("name")
 
         targetscoreId.text = data.toString()
         getusername.text = username.toString()
+        computerwins = intent.getIntExtra("computerwins",0)
+        humanwins = intent.getIntExtra("humanwins",0)
+        humanwins = intent.getIntExtra("humanwins",0)
+        isHard =  intent.getBooleanExtra("isHard",false)
+        println(isHard)
+
         targetScore=data
 
-
-
-
         var throwRound=0
-
-        //val image_one : ImageView = findViewById(R.id.dice1)
 
 
         val throwButton : Button = findViewById(R.id.throwbtn)
         val scorebutton : Button = findViewById(R.id.scorebtn)
-        val userImage0 : ImageView = findViewById(R.id.dice1)
-        val userImage1 : ImageView = findViewById(R.id.dice2)
-        val userImage2 : ImageView = findViewById(R.id.dice3)
-        val userImage3 : ImageView = findViewById(R.id.dice4)
-        val userImage4 : ImageView = findViewById(R.id.dice5)
-        val computerImage0 : ImageView = findViewById(R.id.dice6)
-        val computerImage1 : ImageView = findViewById(R.id.dice7)
-        val computerImage2 : ImageView = findViewById(R.id.dice8)
-        val computerImage3 : ImageView = findViewById(R.id.dice9)
-        val computerImage4 : ImageView = findViewById(R.id.dice10)
         val userScore : TextView = findViewById(R.id.userscore)
         val computerScore : TextView = findViewById(R.id.computerscore)
         val roundID : TextView = findViewById(R.id.roundid)
+        val computerwinsText: TextView = findViewById(R.id.com_winsId)
+        val humanwinsText: TextView = findViewById(R.id.hum_winsId)
 
 
 
@@ -68,6 +63,8 @@ class GamePage : AppCompatActivity() {
         val computerImageList= mutableListOf<ImageView>(findViewById(R.id.dice6),findViewById(R.id.dice7),findViewById(R.id.dice8),findViewById(R.id.dice9),findViewById(R.id.dice10))
         var selectOnlyList = mutableListOf<Boolean>(false,false,false,false,false)
 
+        computerwinsText.setText("C:" + computerwins)
+        humanwinsText.setText("H:"+ humanwins)
 
 
         //inisji
@@ -97,7 +94,6 @@ class GamePage : AppCompatActivity() {
                 }
                 user=randomGenarateNumbers()
 
-
             }else if (throwRound==1){
 
                 throwButton.setText("Rethrow")
@@ -112,8 +108,12 @@ class GamePage : AppCompatActivity() {
                 }
 
             }else {
-                ComputerrandomReroll()
-                ComputerrandomReroll()
+                if (isHard){
+                    hardComputerPlayerStrategy()
+                }else{
+                    ComputerrandomReroll()
+                    ComputerrandomReroll()
+                }
 
                 throwButton.setText("Throw")
 
@@ -164,8 +164,15 @@ class GamePage : AppCompatActivity() {
         }
 
         scorebutton.setOnClickListener{
-            ComputerrandomReroll()
-            ComputerrandomReroll()
+            if (isHard){
+                hardComputerPlayerStrategy()
+                print("hard")
+            }else{
+                ComputerrandomReroll()
+                ComputerrandomReroll()
+                print("ezy")
+            }
+
 
             scoreUpdate()
             computerScore.setText(computerscore.toString())
@@ -196,6 +203,8 @@ class GamePage : AppCompatActivity() {
 
         if (userscore >= targetScore || computerscore >= targetScore) {
             if (userscore > computerscore) {
+                humanwins+=1
+
                 val dialogBox = Dialog(this)
                 dialogBox.setContentView(R.layout.activity_win_orlose)
                 val resultTextView = dialogBox.findViewById(R.id.resulttext) as TextView
@@ -204,9 +213,17 @@ class GamePage : AppCompatActivity() {
                 dialogBox.show()
                 dialogBox.setCanceledOnTouchOutside(false)
                 dialogBox.setOnCancelListener {
-                    finish()
+                    val intent= Intent(this,Choices::class.java)
+                    intent.putExtra("computerwins",computerwins)
+                    intent.putExtra("humanwins",humanwins)
+
+                    startActivity(intent)
+                   //
                 }
             } else if (userscore < computerscore) {
+                computerwins+=1
+
+
                 val dialogBox = Dialog(this)
                 dialogBox.setCanceledOnTouchOutside(false)
                 dialogBox.setContentView(R.layout.activity_win_orlose)
@@ -215,7 +232,12 @@ class GamePage : AppCompatActivity() {
                 resultTextView.setTextColor(loseColor)
                 dialogBox.show()
                 dialogBox.setOnCancelListener {
-                    finish()
+                    val intent= Intent(this,Choices::class.java)
+                    intent.putExtra("computerwins",computerwins)
+                    intent.putExtra("humanwins",humanwins)
+
+                    startActivity(intent)
+
                 }
 
             } else {
@@ -261,7 +283,7 @@ class GamePage : AppCompatActivity() {
     //
     fun ComputerrandomReroll(){
         val randomBoolean = if (Random.nextInt(0, 2) == 0) false else true
-        var randomComputer =  mutableListOf<Boolean>(if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true)
+        val randomComputer =  mutableListOf<Boolean>(if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true)
 
         if (randomBoolean){
             for(index in  0..4){
@@ -272,6 +294,67 @@ class GamePage : AppCompatActivity() {
             }
         }
 
+    }
+    private fun hardComputerPlayerStrategy() {
+        var tempcomputerscore=computerscore
+        var gap = userscore - tempcomputerscore
+
+        //throw
+        if (gap > 20){
+            //high
+            //checking high values
+            for (count in  0 ..4){
+                var randomindex = Random.nextInt(5)
+                if (computer[randomindex] <= 3){
+                    computer[randomindex]= Random.nextInt(6) + 1
+                }
+            }
+        }else if(gap < 20){
+            ComputerrandomReroll()
+            ComputerrandomReroll()
+        }else {
+            //normal
+            ComputerrandomReroll()
+            for (count in  0 ..4){
+                var randomindex = Random.nextInt(5)
+                if (computer[randomindex] <= 2){
+                    computer[randomindex]=Random.nextInt(6) + 1
+                }
+            }
+        }
+
+        for (i in 0..4) {
+            tempcomputerscore += computer[i]
+        }
+
+        //second throw
+        if ((tempcomputerscore<(userscore+10))){
+            var gap = userscore - tempcomputerscore
+
+            if (gap > 20){
+                //high
+                //checking high values
+                for (count in  0 ..4){
+                    var randomindex = Random.nextInt(5) + 1
+                    if (computer[randomindex] <= 3){
+                        computer[randomindex]= Random.nextInt(6) + 1
+                    }
+                }
+            }else if(gap < 20){
+                ComputerrandomReroll()
+                ComputerrandomReroll()
+            }else {
+                //normal
+                //normal
+                ComputerrandomReroll()
+                for (count in  0 ..4){
+                    var randomindex = Random.nextInt(5) + 1
+                    if (computer[randomindex] <= 2){
+                        computer[randomindex]= Random.nextInt(6) + 1
+                    }
+                }
+            }
+        }
     }
 
 

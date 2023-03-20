@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/targetscoreid"
-    android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_width="500dp"
+    android:layout_height="300dp"
     android:layout_gravity="center"
     android:background="@drawable/pic9"
     tools:context=".userNameAndTarget">
@@ -13,76 +13,62 @@
         android:id="@+id/targetid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
         android:text="Target Score"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/usernameid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="108dp"
         android:text="User Name"
         android:textColor="#000000"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreid" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/setupNext"
-        android:layout_width="114dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="66dp"
+        android:layout_width="126dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="224dp"
         android:backgroundTint="#131619"
         android:text="Next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getusername" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/getusername"
         android:layout_width="209dp"
         android:layout_height="51dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="Enter Your Name"
         android:inputType="textPersonName"
         android:text="User"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameid" />
 
     <EditText
         android:id="@+id/scoreid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="number|textPersonName"
         android:text="101"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/targetid" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="92dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="206dp"
-        android:layout_marginTop="2dp"
-        android:text="Hard"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

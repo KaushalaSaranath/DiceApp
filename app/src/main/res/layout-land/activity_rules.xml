@@ -2,36 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
-    android:background="@drawable/pic5"
+    android:background="@drawable/pic8"
+    android:layout_gravity="center"
     tools:context=".Choices">
 
     <Button
         android:id="@+id/aboutid"
-        android:layout_width="128dp"
-        android:layout_height="69dp"
-        android:layout_marginBottom="136dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
         android:backgroundTint="#000000"
         android:text="About"
-        android:textSize="20sp"
-        app:cornerRadius="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newgame" />
 
     <Button
         android:id="@+id/newgame"
-        android:layout_width="195dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="475dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="151dp"
         android:backgroundTint="#000000"
         android:text="New Game"
-        android:textSize="20sp"
-        app:cornerRadius="15dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
