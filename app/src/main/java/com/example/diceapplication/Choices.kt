@@ -30,17 +30,15 @@ class Choices : AppCompatActivity() {
             dialogbox.show()
         }
 
-
         val new_button: Button = findViewById(R.id.newgame)
 
-
         new_button.setOnClickListener {
-
             dialogbox.setContentView(R.layout.activity_user_name_and_target)
             val scorecount = dialogbox.findViewById(R.id.scoreid) as EditText
             val getusername = dialogbox.findViewById(R.id.getusername) as EditText
             val nextButton = dialogbox.findViewById(R.id.setupNext) as Button
             val hardswitch = dialogbox.findViewById(R.id.switch1) as Switch
+
 
             hardswitch?.setOnCheckedChangeListener { _, isChecked ->
                 isHard = isChecked
@@ -62,7 +60,6 @@ class Choices : AppCompatActivity() {
                     dialogbox.dismiss()
                 }
             }
-
             dialogbox.show()
         }
 

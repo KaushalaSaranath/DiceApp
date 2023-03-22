@@ -57,8 +57,6 @@ class GamePage : AppCompatActivity() {
         val computerwinsText: TextView = findViewById(R.id.com_winsId)
         val humanwinsText: TextView = findViewById(R.id.hum_winsId)
 
-
-
         val userImageList=mutableListOf<ImageView>(findViewById(R.id.dice1),findViewById(R.id.dice2),findViewById(R.id.dice3),findViewById(R.id.dice4),findViewById(R.id.dice5))
         val computerImageList= mutableListOf<ImageView>(findViewById(R.id.dice6),findViewById(R.id.dice7),findViewById(R.id.dice8),findViewById(R.id.dice9),findViewById(R.id.dice10))
         var selectOnlyList = mutableListOf<Boolean>(false,false,false,false,false)
@@ -66,8 +64,7 @@ class GamePage : AppCompatActivity() {
         computerwinsText.setText("C:" + computerwins)
         humanwinsText.setText("H:"+ humanwins)
 
-
-        //inisji
+        //initialize
         for (index in 0..4){
             userImageList[index].setOnClickListener {
                 if(selectOnlyList[index]==false){
@@ -194,6 +191,7 @@ class GamePage : AppCompatActivity() {
         }
 
     }
+    // check the match (win or lose )
 
     private fun winMatchCheck() {
         val winMessage = "You Win!"
@@ -280,7 +278,7 @@ class GamePage : AppCompatActivity() {
         }
     }
 
-    //
+    //computer strategy
     fun ComputerrandomReroll(){
         val randomBoolean = if (Random.nextInt(0, 2) == 0) false else true
         val randomComputer =  mutableListOf<Boolean>(if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true,if (Random.nextInt(0, 2) == 0) false else true)

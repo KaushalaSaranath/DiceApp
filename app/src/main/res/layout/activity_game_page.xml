@@ -280,7 +280,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
         android:backgroundTint="#171515"
-        android:capitalize="none"
         android:clickable="false"
         android:text=" Total Wins"
         android:textAllCaps="false"
