@@ -9,7 +9,7 @@
     tools:context=".GamePage">
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/com_winsId"
         android:layout_width="38dp"
         android:layout_height="26dp"
         android:layout_marginTop="23dp"
@@ -252,7 +252,7 @@
         android:textStyle="bold"
         app:cornerRadius="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/com_winsId" />
 
     <Button
         android:id="@+id/targetscore"
