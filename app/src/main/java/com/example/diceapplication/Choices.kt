@@ -14,33 +14,45 @@ class Choices : AppCompatActivity() {
     var computerwins = 0
     var humanwins = 0
     var isHard = false
+    var aboutdialogbox: Dialog? = null
+    var gamedialogbox: Dialog? = null
+    var isNewgamePopup = false
+    var isAboutPopup = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rules)
 
         val about_button: Button = findViewById(R.id.aboutid)
-        val dialogbox = Dialog(this)
+        aboutdialogbox = Dialog(this)
+        gamedialogbox = Dialog(this)
 
         computerwins = intent.getIntExtra("computerwins",0)
         humanwins = intent.getIntExtra("humanwins",0)
 
 
         about_button.setOnClickListener {
-            dialogbox.setContentView(R.layout.activity_profile_pop_up)
-            dialogbox.show()
+            isAboutPopup = true
+            aboutdialogbox!!.setContentView(R.layout.activity_profile_pop_up)
+            aboutdialogbox!!.setOnCancelListener{
+                isAboutPopup=false
+            }
+            aboutdialogbox!!.show()
         }
 
         val new_button: Button = findViewById(R.id.newgame)
 
         new_button.setOnClickListener {
-            dialogbox.setContentView(R.layout.activity_user_name_and_target)
-            val scorecount = dialogbox.findViewById(R.id.scoreid) as EditText
-            val getusername = dialogbox.findViewById(R.id.getusername) as EditText
-            val nextButton = dialogbox.findViewById(R.id.setupNext) as Button
-            val hardswitch = dialogbox.findViewById(R.id.switch1) as Switch
+            isNewgamePopup = true
+            gamedialogbox!!.setContentView(R.layout.activity_user_name_and_target)
+            val scorecount = gamedialogbox!!.findViewById(R.id.scoreid) as EditText
+            val getusername = gamedialogbox!!.findViewById(R.id.getusername) as EditText
+            val nextButton = gamedialogbox!!.findViewById(R.id.setupNext) as Button
+            val hardswitch = gamedialogbox!!.findViewById(R.id.switch1) as Switch
 
 
-            hardswitch?.setOnCheckedChangeListener { _, isChecked ->
+            hardswitch.setOnCheckedChangeListener { _, isChecked ->
                 isHard = isChecked
             }
 
@@ -57,11 +69,85 @@ class Choices : AppCompatActivity() {
                     intent.putExtra("isHard",isHard)
                     intent.putExtra("name",getusername.text.toString())
                     startActivity(intent)
-                    dialogbox.dismiss()
+                    gamedialogbox!!.dismiss()
                 }
             }
-            dialogbox.show()
+            gamedialogbox!!.setOnCancelListener{
+                isNewgamePopup=false
+            }
+            gamedialogbox!!.show()
         }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("computerwins", computerwins)
+        outState.putInt("humanwins", humanwins)
+        outState.putBoolean("isNewgamePopup", isNewgamePopup)
+        outState.putBoolean("isAboutPopup", isAboutPopup)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        computerwins = savedInstanceState.getInt("computerWins")
+        humanwins = savedInstanceState.getInt("userWins")
+        isNewgamePopup = savedInstanceState.getBoolean("isNewgamePopup")
+        isAboutPopup = savedInstanceState.getBoolean("isAboutPopup")
+
+        whenRotateSet()
+    }
+
+    private fun whenRotateSet() {
+        if (isAboutPopup){
+            aboutdialogbox!!.setContentView(R.layout.activity_profile_pop_up)
+            aboutdialogbox!!.setOnCancelListener{
+                isAboutPopup=false
+            }
+            aboutdialogbox!!.show()
+        }
+        if (isNewgamePopup){
+            gamedialogbox!!.setContentView(R.layout.activity_user_name_and_target)
+            val scorecount = gamedialogbox!!.findViewById(R.id.scoreid) as EditText
+            val getusername = gamedialogbox!!.findViewById(R.id.getusername) as EditText
+            val nextButton = gamedialogbox!!.findViewById(R.id.setupNext) as Button
+            val hardswitch = gamedialogbox!!.findViewById(R.id.switch1) as Switch
+
+
+            hardswitch.setOnCheckedChangeListener { _, isChecked ->
+                isHard = isChecked
+            }
+
+            nextButton.setOnClickListener {
+                val intent= Intent(this,GamePage::class.java)
+                intent.putExtra("key",scorecount.text.toString())
+                if (scorecount.text.toString().isEmpty()){
+                    val errorMessage = "enter value"
+                    scorecount.setHint(errorMessage)
+
+                }else{
+                    intent.putExtra("computerwins",computerwins)
+                    intent.putExtra("humanwins",humanwins)
+                    intent.putExtra("isHard",isHard)
+                    intent.putExtra("name",getusername.text.toString())
+                    startActivity(intent)
+                    gamedialogbox!!.dismiss()
+                }
+            }
+            gamedialogbox!!.setOnCancelListener{
+                isNewgamePopup=false
+            }
+            gamedialogbox!!.show()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (aboutdialogbox != null && aboutdialogbox!!.isShowing()) {
+            aboutdialogbox!!.dismiss()
+        }
+        if (gamedialogbox != null && gamedialogbox!!.isShowing()) {
+            gamedialogbox!!.dismiss()
+        }
     }
 }

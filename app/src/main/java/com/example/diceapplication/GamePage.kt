@@ -402,7 +402,7 @@ class GamePage : AppCompatActivity() {
 
         outState.putInt("throwRound", throwRound)
         outState.putString("isWinPopUp", isWinPopUp)
-        println(selectOnlyList)
+
 
         var tempRemoveList = mutableListOf<Int>()
         for (index in 0..4){
@@ -412,7 +412,7 @@ class GamePage : AppCompatActivity() {
                 tempRemoveList.add(0)
             }
         }
-        println(tempRemoveList)
+
         outState.putIntegerArrayList("tempRemoveList", ArrayList(tempRemoveList))
     }
 
@@ -430,7 +430,7 @@ class GamePage : AppCompatActivity() {
         user= savedInstanceState.getIntegerArrayList("user") as MutableList<Int>
         computer= savedInstanceState.getIntegerArrayList("computer") as MutableList<Int>
         var tempRemoveList=savedInstanceState.getIntegerArrayList("tempRemoveList") as MutableList<Int>
-        println(tempRemoveList)
+
         for (index in 0..4){
             if (tempRemoveList[index]==0){
                 selectOnlyList[index]=false
@@ -438,7 +438,6 @@ class GamePage : AppCompatActivity() {
                 selectOnlyList[index]=true
             }
         }
-        println(selectOnlyList)
 
         whenRotateSet()
     }
